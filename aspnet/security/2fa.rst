@@ -8,21 +8,21 @@ This tutorial will show you how to set up two-factor authentication (2FA) using 
 .. Add Set up SMS for ASPSMS just after "Setup for Twilio"
 
 In this article:
-	- `Create a New ASP.NET 5 Project`_
+	- `Create a new ASP.NET 5 project`_
 	- `Setup up SMS for two-factor authentication with Twilio`_
 	- `Enable two-factor authentication`_
 	- `Login with two-factor authentication`_
 	- `Account lockout for protecting against brute force attacks`_
 	- `Debugging  Twilio`_
 
-Create a New ASP.NET 5 Project
+Create a new ASP.NET 5 project
 ------------------------------
 
 Create a new ASP.NET 5 web app with individual user accounts.
 
 .. image:: accconfirm/_static/new-project.png
 
-Follow the instructions in :doc:`accconfirm` to set up and require SSL.
+After you create the project, follow the instructions in :doc:`accconfirm` to set up and require SSL.
 
 Setup up SMS for two-factor authentication with Twilio
 -------------------------------------------------------
@@ -38,11 +38,11 @@ Setup up SMS for two-factor authentication with Twilio
 .. literalinclude:: 2fa/sample/WebSMS/src/WebSMS/Services/MessageServices.cs
    :language: c#
    :lines: 12-39
-   :dedent: 4 
+   :dedent: 4
 
 .. comment note:: Twilio cannot target dnxcore50: You will get compilation errors if you build your project when dnxcore50 is included because Twilio does not have a package for dnxcore50. You can remove dnxcore50 from the *project.json* file or you can call the Twilio REST API to send SMS messages.
 
-Configure the  SMS provider key/value 
+Configure the  SMS provider key/value
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 We'll use the :ref:`Options pattern <options-config-objects>` to access the user account and key settings. For more information, see :doc:`../fundamentals/configuration`.
@@ -79,24 +79,24 @@ Enable two-factor authentication
 --------------------------------
 
 - Open the *Views/Manage/Index.cshtml* Razor view file.
-- Uncomment the phone number markup which starts at 
+- Uncomment the phone number markup which starts at
 
 	``@*@(Model.PhoneNumber ?? "None")``
 
-- Uncomment the ``Model.TwoFactor`` markup which starts at 
+- Uncomment the ``Model.TwoFactor`` markup which starts at
 
 	``@*@if (Model.TwoFactor)``
 
-- Comment out or remove the ``<p>There are no two-factor authentication providers configured.`` markup. 
+- Comment out or remove the ``<p>There are no two-factor authentication providers configured.`` markup.
 
  The completed code is shown below:
- 
+
  .. literalinclude:: 2fa/sample/WebSMS/src/WebSMS/Views/Manage/Index.cshtml
    :language: html
    :lines:  32-77
    :dedent: 8
 
-Login with two-factor authentication
+Log in with two-factor authentication
 ------------------------------------
 
 - Run the app and register a new user
@@ -107,7 +107,7 @@ Login with two-factor authentication
 
 .. image:: 2fa/_static/login2fa2.png
 
-- Add Phone Number
+- Add a phone number that will receive the verification code, and tap **Send verification code**.
 
 .. image:: 2fa/_static/login2fa3.png
 
@@ -115,7 +115,7 @@ Login with two-factor authentication
 
 .. image:: 2fa/_static/login2fa4.png
 
-If you don't get a text message, see `Debugging  Twilio`_.  
+If you don't get a text message, see `Debugging  Twilio`_.
 
 - The Manage view shows your phone number was added successfully.
 
@@ -134,14 +134,14 @@ Test two-factor authentication
 
 .. image:: 2fa/_static/login2fa7.png
 
-- Enter the code you get in the SMS message. 
-- Clicking on the **Remember this browser** check box will exempt you from needing to use 2FA to log on when using the same device and browser. Enabling 2FA and clicking on **Remember this browser** will provide you with strong 2FA protection from malicious users trying to access your account, as long as they don't have access to your device. You can do this on any private device you regularly use. By setting  **Remember this browser**, you get the added security of 2FA from devices you don't regularly use, and you get the convenience on not having to go through 2FA on your own devices. 
+- Enter the code you get in the SMS message.
+- Clicking on the **Remember this browser** check box will exempt you from needing to use 2FA to log on when using the same device and browser. Enabling 2FA and clicking on **Remember this browser** will provide you with strong 2FA protection from malicious users trying to access your account, as long as they don't have access to your device. You can do this on any private device you regularly use. By setting  **Remember this browser**, you get the added security of 2FA from devices you don't regularly use, and you get the convenience on not having to go through 2FA on your own devices.
 
 .. image:: 2fa/_static/login2fa8.png
 
 Account lockout for protecting against brute force attacks
 ----------------------------------------------------------
-We recommend you use account lockout with 2FA.Once a user logs in (through a local account or social account), each failed attempt at 2FA is stored, and if the maximum attempts (default is 5) is reached, the user is locked out for five minutes (you can set the lock out time with ``DefaultAccountLockoutTimeSpan``).
+We recommend you use account lockout with 2FA. Once a user logs in (through a local account or social account), each failed attempt at 2FA is stored, and if the maximum attempts (default is 5) is reached, the user is locked out for five minutes (you can set the lock out time with ``DefaultAccountLockoutTimeSpan``).
 The following configures Account to be locked out for 10 minutes after 10 failed attempts.
 
 .. literalinclude:: 2fa/sample/WebSMS/src/WebSMS/Startup.cs
@@ -169,4 +169,3 @@ If you're able to use the Twilio API, but you don't get an SMS message, try the 
 		var message = twilio.SendMessage(FromPhone, toPhone, "Twilio Test");
 		Console.WriteLine(message.Sid);
 	}
-
