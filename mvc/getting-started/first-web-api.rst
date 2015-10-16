@@ -122,7 +122,9 @@ This approach makes it easier to unit test your controllers. Unit tests should i
 
 In order to inject the repository into the controller, we need to register it with the DI container. Open the *Startup.cs* file. Add the following using directive:
 
-``using TodoApi.Models;``
+.. code-block:: c#
+
+	using TodoApi.Models;
 
 In the ``ConfigureServices`` method, add the highlighted code:
 
@@ -145,7 +147,7 @@ Replace the generated code with the following:
 
 This defines an empty controller class. In the next sections, we'll add methods to implement the API. The `[FromServices] <https://github.com/aspnet/Mvc/blob/dev/src/Microsoft.AspNet.Mvc.Core/FromServicesAttribute.cs>`_ attribute tells MVC to inject the ``ITodoRepository`` that we registered in the ``Startup`` class.    
 
-Delete the *ValuesController.cs* file from the *Controllers* folder. The project template adds it as an example controller, but we don’t need it.
+Delete the *ValuesController.cs* file from the *Controllers* folder. The project template adds it as an example controller, but we don’t need it. 
  
 Getting to-do items
 -------------------
@@ -180,7 +182,7 @@ Routing and URL paths
 The `[HttpGet] <https://github.com/aspnet/Mvc/blob/dev/src/Microsoft.AspNet.Mvc.Core/HttpGetAttribute.cs>`_ attribute specifies that these are HTTP GET methods. The URL path for each method is constructed as follows:
 
 - Take the template string in the controller’s route attribute,  ``[Route("api/[controller]")]``
-- Replace "[controller]" with the root name of the controller class ( the name of the controller class minus the ``Controller`` suffix). For this sample, the controller class name is **Todo**\Controller and the root name is "todo". ASP.NET MVC is not case sensitive.
+- Replace "[Controller]" with the name of the controller, which is the controller class name minus the "Controller" suffix. For this sample the name of the controller is "todo" (case insensitive). For this sample, the controller class name is **Todo**\Controller and the root name is "todo". ASP.NET MVC is not case sensitive.
 - If the ``[HttpGet]`` attribute also has a template string, append that to the path. This sample doesn't use a template string. 
 
 For the ``GetById`` method,  "{id}" is a placeholder variable. In the actual HTTP request, the client will use the ID of the ``todo`` item. At runtime, when MVC invokes ``GetById``, it assigns the value of "{id}" in the URL the method's ``id`` parameter.
@@ -196,7 +198,7 @@ To learn more about request routing in MVC 6, see :doc:`../controllers/routing`.
 Return values
 ^^^^^^^^^^^^^
 
-The ``GetAll`` method returns a CLR object. MVC automatically serializes the object to `JSON <http://www.json.org/>`__ and writes the ``JSON`` into the body of the response message. The response code for this method is 200, assuming there are no unhandled exceptions. (Unhandled exceptions are translated into 5xx errors.)
+The ``GetAll`` method returns a CLR object. MVC automatically serializes the object to `JSON <http://www.json.org/>`__ and writes the JSON into the body of the response message. The response code for this method is 200, assuming there are no unhandled exceptions. (Unhandled exceptions are translated into 5xx errors.)
 
 In contrast, the ``GetById`` method returns the more general ``IActionResult`` type, which represents a generic result type. That’s because ``GetById`` has two different return types:
 
