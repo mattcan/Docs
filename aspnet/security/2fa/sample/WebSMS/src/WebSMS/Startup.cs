@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Authentication.Facebook;
 using Microsoft.AspNet.Authentication.Google;
@@ -17,6 +16,7 @@ using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using WebSMS.Models;
 using WebSMS.Services;
+using Microsoft.AspNet.Identity;
 
 namespace WebSMS
 {
@@ -64,7 +64,7 @@ namespace WebSMS
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
             // services.AddWebApiConventions(); 
 
-            services.Configure<Microsoft.AspNet.Identity.IdentityOptions>(options =>
+            services.Configure<IdentityOptions>(options =>
             {
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
                 options.Lockout.MaxFailedAccessAttempts = 10;

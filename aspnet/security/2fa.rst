@@ -11,7 +11,7 @@ In this article:
 	- `Create a new ASP.NET 5 project`_
 	- `Setup up SMS for two-factor authentication with Twilio`_
 	- `Enable two-factor authentication`_
-	- `Login with two-factor authentication`_
+	- `Log in with two-factor authentication`_
 	- `Account lockout for protecting against brute force attacks`_
 	- `Debugging  Twilio`_
 
@@ -40,9 +40,11 @@ Setup up SMS for two-factor authentication with Twilio
    :lines: 12-39
    :dedent: 4
 
-.. comment note:: Twilio cannot target dnxcore50: You will get compilation errors if you build your project when dnxcore50 is included because Twilio does not have a package for dnxcore50. You can remove dnxcore50 from the *project.json* file or you can call the Twilio REST API to send SMS messages.
+.. note:: Twilio cannot target dnxcore50: You will get compilation errors if you build your project when dnxcore50 is included because Twilio does not have a package for dnxcore50. You can remove dnxcore50 from the *project.json* file or you can call the Twilio REST API to send SMS messages.
 
-Configure the  SMS provider key/value
+.. note:: You can remove ``//`` line comment characters from the ``System.Diagnostics.Debug.WriteLine(message);`` line to test the application when you can't get SMS messages. A better approach to logging is to use the built in :doc:`../fundamentals/logging`.        
+
+Configure the SMS provider key/value
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 We'll use the :ref:`Options pattern <options-config-objects>` to access the user account and key settings. For more information, see :doc:`../fundamentals/configuration`.
@@ -97,7 +99,7 @@ Enable two-factor authentication
    :dedent: 8
 
 Log in with two-factor authentication
-------------------------------------
+----------------------------------------
 
 - Run the app and register a new user
 

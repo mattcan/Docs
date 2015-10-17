@@ -33,7 +33,7 @@ namespace WebSMS.Services.Copy
             var result = twilio.SendMessage(Options.SendNumber, number, message);
             // Use the debug output for testing without receiving a SMS message.
             // Remove the Debug.WriteLine(message) line after debugging.
-            System.Diagnostics.Debug.WriteLine(message);
+            // System.Diagnostics.Debug.WriteLine(message);
             return Task.FromResult(0);
         }
     }
